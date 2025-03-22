@@ -9,8 +9,7 @@ import lombok.EqualsAndHashCode;
 /**
  * 帖子收藏查询请求
  *
- * @author <a href="https://github.com/lilyh">程序员鱼皮</a>
- * @from <a href="https://lyh.icu">编程导航知识星球</a>
+ * @author <a href=https://github.com/fearlesslyh> 梁懿豪 </a>
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
