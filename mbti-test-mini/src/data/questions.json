@@ -1,0 +1,302 @@
+[
+  {
+    "title": "你在完成任务时通常倾向于",
+    "options": [
+      {
+        "result": "I",
+        "value": "独立解决问题",
+        "key": "A"
+      },
+      {
+        "result": "E",
+        "value": "与团队协作",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "面对新的项目，你通常",
+    "options": [
+      {
+        "result": "J",
+        "value": "制定详细计划",
+        "key": "A"
+      },
+      {
+        "result": "P",
+        "value": "灵活随机应变",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "在处理数据和信息时，你更偏向于",
+    "options": [
+      {
+        "result": "S",
+        "value": "注重事实和细节",
+        "key": "A"
+      },
+      {
+        "result": "N",
+        "value": "关注大局和可能性",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "做决策时，你更看重",
+    "options": [
+      {
+        "result": "T",
+        "value": "客观逻辑",
+        "key": "A"
+      },
+      {
+        "result": "F",
+        "value": "个人情感",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "在工作环境中，你更喜欢",
+    "options": [
+      {
+        "result": "I",
+        "value": "保持专注于单一任务",
+        "key": "A"
+      },
+      {
+        "result": "E",
+        "value": "同时处理多个任务",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "你在安排日程时倾向于",
+    "options": [
+      {
+        "result": "J",
+        "value": "提前规划",
+        "key": "A"
+      },
+      {
+        "result": "P",
+        "value": "随遇而安",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "当面对新信息时，你倾向于",
+    "options": [
+      {
+        "result": "N",
+        "value": "依赖直观和想象",
+        "key": "A"
+      },
+      {
+        "result": "S",
+        "value": "依赖过去的经验",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "在压力下工作时，你更喜欢",
+    "options": [
+      {
+        "result": "I",
+        "value": "独自安静工作",
+        "key": "A"
+      },
+      {
+        "result": "E",
+        "value": "在热闹的环境中工作",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "你在解决问题时通常会",
+    "options": [
+      {
+        "result": "T",
+        "value": "先分析数据和逻辑",
+        "key": "A"
+      },
+      {
+        "result": "F",
+        "value": "考虑人际关系和感受",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "面对紧急情况，你通常",
+    "options": [
+      {
+        "result": "J",
+        "value": "保持冷静，按计划行事",
+        "key": "A"
+      },
+      {
+        "result": "P",
+        "value": "灵活变通，随机应变",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "当遇到挑战时，你通常",
+    "options": [
+      {
+        "result": "N",
+        "value": "依靠内在直觉做决策",
+        "key": "A"
+      },
+      {
+        "result": "S",
+        "value": "依赖具体事实分析",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "在团队讨论中，你更倾向于",
+    "options": [
+      {
+        "result": "E",
+        "value": "主动表达自己的观点",
+        "key": "A"
+      },
+      {
+        "result": "I",
+        "value": "倾听他人的意见",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "你看待工作规则时更偏向于",
+    "options": [
+      {
+        "result": "T",
+        "value": "认为规则是必要的",
+        "key": "A"
+      },
+      {
+        "result": "F",
+        "value": "认为规则可以适度变通",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "在创造新想法时，你更倾向于",
+    "options": [
+      {
+        "result": "S",
+        "value": "从实际经验出发",
+        "key": "A"
+      },
+      {
+        "result": "N",
+        "value": "从全新视角构思",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "处理冲突时，你通常",
+    "options": [
+      {
+        "result": "T",
+        "value": "直接表达并解决问题",
+        "key": "A"
+      },
+      {
+        "result": "F",
+        "value": "注重情感交流寻求和解",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "在放松时，你更倾向于",
+    "options": [
+      {
+        "result": "I",
+        "value": "独自享受安静时光",
+        "key": "A"
+      },
+      {
+        "result": "E",
+        "value": "参加社交活动",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "面对未知的任务，你更倾向于",
+    "options": [
+      {
+        "result": "J",
+        "value": "制定清晰的计划",
+        "key": "A"
+      },
+      {
+        "result": "P",
+        "value": "保持开放心态，随时调整",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "你看待细节的态度是",
+    "options": [
+      {
+        "result": "S",
+        "value": "注重每一个小细节",
+        "key": "A"
+      },
+      {
+        "result": "N",
+        "value": "关注整体大局",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "在决策过程中，你更依赖",
+    "options": [
+      {
+        "result": "T",
+        "value": "客观数据和逻辑",
+        "key": "A"
+      },
+      {
+        "result": "F",
+        "value": "内心直觉和情感",
+        "key": "B"
+      }
+    ]
+  },
+  {
+    "title": "你在表达观点时通常",
+    "options": [
+      {
+        "result": "I",
+        "value": "倾向于内敛思考后发言",
+        "key": "A"
+      },
+      {
+        "result": "E",
+        "value": "倾向于即时交流分享",
+        "key": "B"
+      }
+    ]
+  }
+]

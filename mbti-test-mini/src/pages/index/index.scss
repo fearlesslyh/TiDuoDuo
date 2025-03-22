@@ -1,0 +1,35 @@
+.indexPage {
+  background-size: cover; // 使背景图片覆盖整个容器
+  // 背景图片居中显示
+  // 防止背景图片重复
+  background: url('../../assets/yanami.png') no-repeat center;
+  width: 100%; // 容器宽度设置为100%
+  height: 100vh; // 容器高度设置为视口高度的100%
+  position: relative; /* 为绝对定位提供参照 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .title {
+    color: white;
+    padding-top: 48px;
+    justify-content: flex-start;
+
+  }
+
+  .subTitle {
+    color: chocolate;
+    margin-bottom: 150%;
+    margin-top: auto;
+    justify-content: flex-start;
+  }
+
+  .enterButton {
+    width: 70vw;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+}

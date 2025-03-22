@@ -1,0 +1,178 @@
+[
+  {
+    "resultProp": [
+      "I",
+      "S",
+      "T",
+      "J"
+    ],
+    "resultDesc": "严谨务实，精确把控每个细节，常被誉为理性决策的典范。",
+    "resultPicture": "icon_custom_istj",
+    "resultName": "ISTJ（执行者）"
+  },
+  {
+    "resultProp": [
+      "I",
+      "S",
+      "F",
+      "J"
+    ],
+    "resultDesc": "温暖贴心，总能敏锐捕捉他人情感需求，默默守护身边的人。",
+    "resultPicture": "icon_custom_isfj",
+    "resultName": "ISFJ（护卫者）"
+  },
+  {
+    "resultProp": [
+      "I",
+      "N",
+      "F",
+      "J"
+    ],
+    "resultDesc": "富有洞察力，内心深沉，常以独到见解启发他人。",
+    "resultPicture": "icon_custom_infj",
+    "resultName": "INFJ（预言家）"
+  },
+  {
+    "resultProp": [
+      "I",
+      "N",
+      "T",
+      "J"
+    ],
+    "resultDesc": "战略眼光独到，思维严谨且具有前瞻性，追求完美规划。",
+    "resultPicture": "icon_custom_intj",
+    "resultName": "INTJ（大师）"
+  },
+  {
+    "resultProp": [
+      "I",
+      "S",
+      "T",
+      "P"
+    ],
+    "resultDesc": "冷静分析，动手能力出众，总能在紧急时刻保持沉着。",
+    "resultPicture": "icon_custom_istp",
+    "resultName": "ISTP（探险者）"
+  },
+  {
+    "resultProp": [
+      "I",
+      "S",
+      "F",
+      "P"
+    ],
+    "resultDesc": "充满艺术气息，感性细腻，追求生活中最真实的美好。",
+    "resultPicture": "icon_custom_isfp",
+    "resultName": "ISFP（创作者）"
+  },
+  {
+    "resultProp": [
+      "I",
+      "N",
+      "F",
+      "P"
+    ],
+    "resultDesc": "理想与情感并重，常以诗意的方式表达内心的世界。",
+    "resultPicture": "icon_custom_infp",
+    "resultName": "INFP（梦幻家）"
+  },
+  {
+    "resultProp": [
+      "I",
+      "N",
+      "T",
+      "P"
+    ],
+    "resultDesc": "逻辑与创新并驾齐驱，热衷探索复杂问题的多种可能。",
+    "resultPicture": "icon_custom_intp",
+    "resultName": "INTP（思想家）"
+  },
+  {
+    "resultProp": [
+      "E",
+      "S",
+      "T",
+      "P"
+    ],
+    "resultDesc": "行动迅速，适应能力极强，总能在动态环境中游刃有余。",
+    "resultPicture": "icon_custom_estp",
+    "resultName": "ESTP（冒险家）"
+  },
+  {
+    "resultProp": [
+      "E",
+      "S",
+      "F",
+      "P"
+    ],
+    "resultDesc": "充满活力，热情洋溢，擅长将欢乐氛围传递给每个人。",
+    "resultPicture": "icon_custom_esfp",
+    "resultName": "ESFP（演绎家）"
+  },
+  {
+    "resultProp": [
+      "E",
+      "N",
+      "F",
+      "P"
+    ],
+    "resultDesc": "富于创意，激情四溢，总能激发周围人的无限潜能。",
+    "resultPicture": "icon_custom_enfp",
+    "resultName": "ENFP（激励者）"
+  },
+  {
+    "resultProp": [
+      "E",
+      "N",
+      "T",
+      "P"
+    ],
+    "resultDesc": "思维敏捷，勇于创新，乐于探索未知领域并挑战常规。",
+    "resultPicture": "icon_custom_entp",
+    "resultName": "ENTP（革新者）"
+  },
+  {
+    "resultProp": [
+      "E",
+      "S",
+      "T",
+      "J"
+    ],
+    "resultDesc": "组织能力卓越，执行力强，擅长构建高效运转的体系。",
+    "resultPicture": "icon_custom_estj",
+    "resultName": "ESTJ（管理者）"
+  },
+  {
+    "resultProp": [
+      "E",
+      "S",
+      "F",
+      "J"
+    ],
+    "resultDesc": "乐于助人，沟通协调能力出众，始终致力于团队和谐。",
+    "resultPicture": "icon_custom_esfj",
+    "resultName": "ESFJ（协调者）"
+  },
+  {
+    "resultProp": [
+      "E",
+      "N",
+      "F",
+      "J"
+    ],
+    "resultDesc": "魅力十足，擅长激励他人，常被视为自然的领导者。",
+    "resultPicture": "icon_custom_enfj",
+    "resultName": "ENFJ（引领者）"
+  },
+  {
+    "resultProp": [
+      "E",
+      "N",
+      "T",
+      "J"
+    ],
+    "resultDesc": "果敢决策，战略部署精准，能够高效推动团队实现目标。",
+    "resultPicture": "icon_custom_entj",
+    "resultName": "ENTJ（统领者）"
+  }
+]
