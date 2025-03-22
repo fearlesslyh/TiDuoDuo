@@ -1,7 +1,9 @@
-package com.yupi.TiDuoDuo.service;
+package com.lyh.TiDuoDuo.service;
 
-import com.yupi.TiDuoDuo.model.entity.User;
+import com.lyh.TiDuoDuo.model.entity.User;
 import javax.annotation.Resource;
+
+import com.lyh.TiDuoDuo.service.PostThumbService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -10,8 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 /**
  * 帖子点赞服务测试
  *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
+ * @author <a href="https://github.com/lilyh">程序员鱼皮</a>
+ * @from <a href="https://lyh.icu">编程导航知识星球</a>
  */
 @SpringBootTest
 class PostThumbServiceTest {

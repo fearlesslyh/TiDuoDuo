@@ -1,4 +1,4 @@
-//package com.yupi.TiDuoDuo.service;
+//package com.lyh.TiDuoDuo.service;
 //
 //import javax.annotation.Resource;
 //import org.junit.jupiter.api.Assertions;
@@ -8,8 +8,8 @@
 ///**
 // * 用户服务测试
 // *
-// * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
-// * @from <a href="https://yupi.icu">编程导航知识星球</a>
+// * @author <a href="https://github.com/lilyh">程序员鱼皮</a>
+// * @from <a href="https://lyh.icu">编程导航知识星球</a>
 // */
 //@SpringBootTest
 //public class UserServiceTest {
@@ -19,7 +19,7 @@
 //
 //    @Test
 //    void userRegister() {
-//        String userAccount = "yupi";
+//        String userAccount = "lyh";
 //        String userPassword = "";
 //        String checkPassword = "123456";
 //        try {
