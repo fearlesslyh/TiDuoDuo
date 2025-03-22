@@ -1,0 +1,356 @@
+package com.lyh.TiDuoDuo.model.entity;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
+
+import java.util.Date;
+
+/**
+ * 用户答题记录
+ * @TableName user_answer
+ */
+@TableName(value ="user_answer")
+public class UserAnswer {
+    /**
+     * 
+     */
+    @TableId(type = IdType.ASSIGN_ID)
+    private Long id;
+
+    /**
+     * 应用 id
+     */
+    private Long appId;
+
+    /**
+     * 应用类型（0-得分类，1-角色测评类）
+     */
+    private Integer appType;
+
+    /**
+     * 评分策略（0-自定义，1-AI）
+     */
+    private Integer scoringStrategy;
+
+    /**
+     * 用户答案（JSON 数组）
+     */
+    private String choices;
+
+    /**
+     * 评分结果 id
+     */
+    private Long resultId;
+
+    /**
+     * 结果名称，如物流师
+     */
+    private String resultName;
+
+    /**
+     * 结果描述
+     */
+    private String resultDesc;
+
+    /**
+     * 结果图标
+     */
+    private String resultPicture;
+
+    /**
+     * 得分
+     */
+    private Integer resultScore;
+
+    /**
+     * 用户 id
+     */
+    private Long userId;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
+
+    /**
+     * 是否删除
+     */
+    @TableLogic
+    private Integer isDelete;
+
+    /**
+     * 
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * 
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * 应用 id
+     */
+    public Long getAppId() {
+        return appId;
+    }
+
+    /**
+     * 应用 id
+     */
+    public void setAppId(Long appId) {
+        this.appId = appId;
+    }
+
+    /**
+     * 应用类型（0-得分类，1-角色测评类）
+     */
+    public Integer getAppType() {
+        return appType;
+    }
+
+    /**
+     * 应用类型（0-得分类，1-角色测评类）
+     */
+    public void setAppType(Integer appType) {
+        this.appType = appType;
+    }
+
+    /**
+     * 评分策略（0-自定义，1-AI）
+     */
+    public Integer getScoringStrategy() {
+        return scoringStrategy;
+    }
+
+    /**
+     * 评分策略（0-自定义，1-AI）
+     */
+    public void setScoringStrategy(Integer scoringStrategy) {
+        this.scoringStrategy = scoringStrategy;
+    }
+
+    /**
+     * 用户答案（JSON 数组）
+     */
+    public String getChoices() {
+        return choices;
+    }
+
+    /**
+     * 用户答案（JSON 数组）
+     */
+    public void setChoices(String choices) {
+        this.choices = choices;
+    }
+
+    /**
+     * 评分结果 id
+     */
+    public Long getResultId() {
+        return resultId;
+    }
+
+    /**
+     * 评分结果 id
+     */
+    public void setResultId(Long resultId) {
+        this.resultId = resultId;
+    }
+
+    /**
+     * 结果名称，如物流师
+     */
+    public String getResultName() {
+        return resultName;
+    }
+
+    /**
+     * 结果名称，如物流师
+     */
+    public void setResultName(String resultName) {
+        this.resultName = resultName;
+    }
+
+    /**
+     * 结果描述
+     */
+    public String getResultDesc() {
+        return resultDesc;
+    }
+
+    /**
+     * 结果描述
+     */
+    public void setResultDesc(String resultDesc) {
+        this.resultDesc = resultDesc;
+    }
+
+    /**
+     * 结果图标
+     */
+    public String getResultPicture() {
+        return resultPicture;
+    }
+
+    /**
+     * 结果图标
+     */
+    public void setResultPicture(String resultPicture) {
+        this.resultPicture = resultPicture;
+    }
+
+    /**
+     * 得分
+     */
+    public Integer getResultScore() {
+        return resultScore;
+    }
+
+    /**
+     * 得分
+     */
+    public void setResultScore(Integer resultScore) {
+        this.resultScore = resultScore;
+    }
+
+    /**
+     * 用户 id
+     */
+    public Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * 用户 id
+     */
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * 创建时间
+     */
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    /**
+     * 创建时间
+     */
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    /**
+     * 更新时间
+     */
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    /**
+     * 更新时间
+     */
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    /**
+     * 是否删除
+     */
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    /**
+     * 是否删除
+     */
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that == null) {
+            return false;
+        }
+        if (getClass() != that.getClass()) {
+            return false;
+        }
+        UserAnswer other = (UserAnswer) that;
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getAppId() == null ? other.getAppId() == null : this.getAppId().equals(other.getAppId()))
+            && (this.getAppType() == null ? other.getAppType() == null : this.getAppType().equals(other.getAppType()))
+            && (this.getScoringStrategy() == null ? other.getScoringStrategy() == null : this.getScoringStrategy().equals(other.getScoringStrategy()))
+            && (this.getChoices() == null ? other.getChoices() == null : this.getChoices().equals(other.getChoices()))
+            && (this.getResultId() == null ? other.getResultId() == null : this.getResultId().equals(other.getResultId()))
+            && (this.getResultName() == null ? other.getResultName() == null : this.getResultName().equals(other.getResultName()))
+            && (this.getResultDesc() == null ? other.getResultDesc() == null : this.getResultDesc().equals(other.getResultDesc()))
+            && (this.getResultPicture() == null ? other.getResultPicture() == null : this.getResultPicture().equals(other.getResultPicture()))
+            && (this.getResultScore() == null ? other.getResultScore() == null : this.getResultScore().equals(other.getResultScore()))
+            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+            && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()));
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getAppId() == null) ? 0 : getAppId().hashCode());
+        result = prime * result + ((getAppType() == null) ? 0 : getAppType().hashCode());
+        result = prime * result + ((getScoringStrategy() == null) ? 0 : getScoringStrategy().hashCode());
+        result = prime * result + ((getChoices() == null) ? 0 : getChoices().hashCode());
+        result = prime * result + ((getResultId() == null) ? 0 : getResultId().hashCode());
+        result = prime * result + ((getResultName() == null) ? 0 : getResultName().hashCode());
+        result = prime * result + ((getResultDesc() == null) ? 0 : getResultDesc().hashCode());
+        result = prime * result + ((getResultPicture() == null) ? 0 : getResultPicture().hashCode());
+        result = prime * result + ((getResultScore() == null) ? 0 : getResultScore().hashCode());
+        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
+        result = prime * result + ((getIsDelete() == null) ? 0 : getIsDelete().hashCode());
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", appId=").append(appId);
+        sb.append(", appType=").append(appType);
+        sb.append(", scoringStrategy=").append(scoringStrategy);
+        sb.append(", choices=").append(choices);
+        sb.append(", resultId=").append(resultId);
+        sb.append(", resultName=").append(resultName);
+        sb.append(", resultDesc=").append(resultDesc);
+        sb.append(", resultPicture=").append(resultPicture);
+        sb.append(", resultScore=").append(resultScore);
+        sb.append(", userId=").append(userId);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", updateTime=").append(updateTime);
+        sb.append(", isDelete=").append(isDelete);
+        sb.append("]");
+        return sb.toString();
+    }
+}
