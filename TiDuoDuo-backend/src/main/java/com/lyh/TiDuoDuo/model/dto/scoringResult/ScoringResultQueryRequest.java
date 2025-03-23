@@ -1,10 +1,13 @@
 package com.lyh.TiDuoDuo.model.dto.scoringResult;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.lyh.TiDuoDuo.common.PageRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,34 +26,40 @@ public class ScoringResultQueryRequest extends PageRequest implements Serializab
     private Long id;
 
     /**
-     * id
+     * 结果名称，如物流师
      */
-    private Long notId;
+    private String resultName;
 
     /**
-     * 搜索词
+     * 结果描述
      */
-    private String searchText;
+    private String resultDesc;
 
     /**
-     * 标题
+     * 结果图片
      */
-    private String title;
+    private String resultPicture;
 
     /**
-     * 内容
+     * 结果属性集合 JSON，如 [I,S,T,J]
      */
-    private String content;
+    private List<String>  resultProp;
 
     /**
-     * 标签列表
+     * 结果得分范围，如 80，表示 80及以上的分数命中此结果
      */
-    private List<String> tags;
+    private Integer resultScoreRange;
+
+    /**
+     * 应用 id
+     */
+    private Long appId;
 
     /**
      * 创建用户 id
      */
     private Long userId;
+
 
     private static final long serialVersionUID = 1L;
 }
