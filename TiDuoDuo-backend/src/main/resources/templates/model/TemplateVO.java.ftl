@@ -13,7 +13,7 @@ import java.util.List;
  * ${dataName}视图
  *
  * @author <a href=https://github.com/fearlesslyh> 梁懿豪 </a>
- * @from <a href="https://www.code-nav.cn">编程导航学习圈</a>
+
  */
 @Data
 public class ${upperDataKey}VO implements Serializable {

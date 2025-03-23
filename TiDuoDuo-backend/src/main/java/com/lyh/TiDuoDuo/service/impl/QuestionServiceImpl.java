@@ -7,7 +7,7 @@ import com.lyh.TiDuoDuo.mapper.QuestionMapper;
 import org.springframework.stereotype.Service;
 
 /**
-* @author RAOYAO
+* @author 梁懿豪
 * @description 针对表【question(题目)】的数据库操作Service实现
 * @createDate 2025-03-22 22:44:48
 */

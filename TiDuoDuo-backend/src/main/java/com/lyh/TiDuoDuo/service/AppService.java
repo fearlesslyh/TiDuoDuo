@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.lyh.TiDuoDuo.model.entity.App;
 
 /**
-* @author RAOYAO
+* @author 梁懿豪
 * @description 针对表【app(应用)】的数据库操作Service
 * @createDate 2025-03-22 22:44:48
 */
