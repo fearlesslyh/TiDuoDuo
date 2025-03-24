@@ -70,9 +70,7 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements AppSe
             // 校验应用类型是否为空
             AppEnum appEnum = AppEnum.getEnumByValue(appType);
             ThrowUtils.throwIf(appEnum == null, ErrorCode.PARAMS_ERROR, "应用类型不能为空");
-            // 校验审核状态是否为空
-            ReviewStatusEnum reviewStatusEnum = ReviewStatusEnum.getEnumByValue(reviewStatus);
-            ThrowUtils.throwIf(reviewStatusEnum == null, ErrorCode.PARAMS_ERROR, "审核状态不能为空");
+
             // 校验评分策略是否为空
             ReviewStrategyEnum reviewStrategyEnum = ReviewStrategyEnum.getEnumByValue(scoringStrategy);
             ThrowUtils.throwIf(reviewStrategyEnum == null, ErrorCode.PARAMS_ERROR, "评分策略不能为空");
@@ -81,12 +79,18 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements AppSe
         //  补充校验规则
         // 校验应用名称长度是否小于30
         if (StringUtils.isNotBlank(appName)) {
-            ThrowUtils.throwIf(appName.length() < 30, ErrorCode.PARAMS_ERROR, "应用名称要小于30");
+            ThrowUtils.throwIf(appName.length() > 30, ErrorCode.PARAMS_ERROR, "应用名称要小于30");
         }
         // 校验应用描述长度是否小于100
         if (StringUtils.isNotBlank(appDesc)) {
-            ThrowUtils.throwIf(appDesc.length() < 100, ErrorCode.PARAMS_ERROR, "应用描述要小于100");
+            ThrowUtils.throwIf(appDesc.length() > 100, ErrorCode.PARAMS_ERROR, "应用描述要小于100");
         }
+
+        if(reviewStatus != null){
+            ReviewStatusEnum reviewStatusEnum = ReviewStatusEnum.getEnumByValue(reviewStatus);
+            ThrowUtils.throwIf(reviewStatusEnum == null, ErrorCode.PARAMS_ERROR, "审核状态不能为空");
+        }
+
     }
 
     /**

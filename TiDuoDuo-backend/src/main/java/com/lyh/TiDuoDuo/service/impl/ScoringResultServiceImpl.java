@@ -66,7 +66,7 @@ public class ScoringResultServiceImpl extends ServiceImpl<ScoringResultMapper, S
         // 修改数据时，有参数则校验
         //  补充校验规则
         if (StringUtils.isNotBlank(resultName)) {
-            ThrowUtils.throwIf(resultName.length() < 128, ErrorCode.PARAMS_ERROR, "评分结果名称不能太长");
+            ThrowUtils.throwIf(resultName.length() > 128, ErrorCode.PARAMS_ERROR, "评分结果名称不能太长");
         }
         if (appId != null) {
             App app = appService.getById(appId);
