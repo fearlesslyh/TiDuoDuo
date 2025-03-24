@@ -13,7 +13,6 @@ import java.util.List;
  * 应用视图
  *
  * @author <a href=https://github.com/fearlesslyh> 梁懿豪 </a>
-
  */
 @Data
 public class AppVO implements Serializable {
