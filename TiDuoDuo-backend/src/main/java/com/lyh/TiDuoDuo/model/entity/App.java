@@ -233,7 +233,7 @@ public class App {
     }
 
     /**
-     * 创建用户 id
+     * 创建者 id
      */
     public void setUserId(Long userId) {
         this.userId = userId;
