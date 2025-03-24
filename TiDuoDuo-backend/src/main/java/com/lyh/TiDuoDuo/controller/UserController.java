@@ -9,30 +9,20 @@ import com.lyh.TiDuoDuo.common.ResultUtils;
 import com.lyh.TiDuoDuo.constant.UserConstant;
 import com.lyh.TiDuoDuo.exception.BusinessException;
 import com.lyh.TiDuoDuo.exception.ThrowUtils;
-import com.lyh.TiDuoDuo.model.dto.user.UserAddRequest;
-import com.lyh.TiDuoDuo.model.dto.user.UserLoginRequest;
-import com.lyh.TiDuoDuo.model.dto.user.UserQueryRequest;
-import com.lyh.TiDuoDuo.model.dto.user.UserRegisterRequest;
-import com.lyh.TiDuoDuo.model.dto.user.UserUpdateMyRequest;
-import com.lyh.TiDuoDuo.model.dto.user.UserUpdateRequest;
+import com.lyh.TiDuoDuo.model.dto.user.*;
 import com.lyh.TiDuoDuo.model.entity.User;
 import com.lyh.TiDuoDuo.model.vo.LoginUserVO;
 import com.lyh.TiDuoDuo.model.vo.UserVO;
 import com.lyh.TiDuoDuo.service.UserService;
-
-import java.util.List;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import static com.lyh.TiDuoDuo.service.impl.UserServiceImpl.SALT;
 
