@@ -225,6 +225,9 @@ public class AppController {
         if (!oldApp.getUserId().equals(loginUser.getId()) && !userService.isAdmin(loginUser)) {
             throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
         }
+        // 设置审核状态为审核中
+        app.setReviewStatus(ReviewStatusEnum.REVIEWING.getValue());
+
         // 操作数据库,把 app 的数据更新到数据库中
         boolean result = appService.updateById(app);
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
