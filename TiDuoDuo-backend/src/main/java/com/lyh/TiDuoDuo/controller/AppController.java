@@ -15,6 +15,7 @@ import com.lyh.TiDuoDuo.model.dto.app.AppQueryRequest;
 import com.lyh.TiDuoDuo.model.dto.app.AppUpdateRequest;
 import com.lyh.TiDuoDuo.model.entity.App;
 import com.lyh.TiDuoDuo.model.entity.User;
+import com.lyh.TiDuoDuo.model.enums.ReviewStatusEnum;
 import com.lyh.TiDuoDuo.model.vo.AppVO;
 import com.lyh.TiDuoDuo.service.AppService;
 import com.lyh.TiDuoDuo.service.UserService;
@@ -61,6 +62,7 @@ public class AppController {
         //  填充默认值
         User loginUser = userService.getLoginUser(request);
         app.setUserId(loginUser.getId());
+        app.setReviewStatus(ReviewStatusEnum.REVIEWING.getValue());
         // 写入数据库
         boolean result = appService.save(app);
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
