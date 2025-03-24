@@ -15,13 +15,14 @@ import com.lyh.TiDuoDuo.model.vo.PostVO;
 import com.lyh.TiDuoDuo.service.PostFavourService;
 import com.lyh.TiDuoDuo.service.PostService;
 import com.lyh.TiDuoDuo.service.UserService;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 帖子收藏接口
