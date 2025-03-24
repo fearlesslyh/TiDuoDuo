@@ -60,7 +60,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
 
         // 创建数据时，参数不能为空
         if (add) {
-            // todo 补充校验规则
+            //  补充校验规则
             ThrowUtils.throwIf(StringUtils.isBlank(questionContent), ErrorCode.PARAMS_ERROR, "题目不能为空");
             ThrowUtils.throwIf(ObjectUtils.isEmpty(appId), ErrorCode.PARAMS_ERROR, "应用不能为空");
             ThrowUtils.throwIf(userId == null || userId <= 0, ErrorCode.PARAMS_ERROR, "用户不能为空");

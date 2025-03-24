@@ -68,6 +68,10 @@ public class ScoringResultVO implements Serializable {
      * 更新时间
      */
     private Date updateTime;
+    /**
+     * 创建用户信息
+     */
+    private UserVO user;
 
     /**
      * 封装类转对象

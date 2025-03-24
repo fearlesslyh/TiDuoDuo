@@ -78,7 +78,7 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements AppSe
             ThrowUtils.throwIf(reviewStrategyEnum == null, ErrorCode.PARAMS_ERROR, "评分策略不能为空");
         }
         // 修改数据时，有参数则校验
-        // todo 补充校验规则
+        //  补充校验规则
         // 校验应用名称长度是否小于30
         if (StringUtils.isNotBlank(appName)) {
             ThrowUtils.throwIf(appName.length() < 30, ErrorCode.PARAMS_ERROR, "应用名称要小于30");
