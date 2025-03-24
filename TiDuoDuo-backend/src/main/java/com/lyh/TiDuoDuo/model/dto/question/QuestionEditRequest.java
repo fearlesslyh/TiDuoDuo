@@ -3,6 +3,7 @@ package com.lyh.TiDuoDuo.model.dto.question;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,19 +21,9 @@ public class QuestionEditRequest implements Serializable {
     private Long id;
 
     /**
-     * 标题
+     * 题目内容（json格式）
      */
-    private String title;
-
-    /**
-     * 内容
-     */
-    private String content;
-
-    /**
-     * 标签列表
-     */
-    private List<String> tags;
+    private QuestionContent questionContent;
 
     private static final long serialVersionUID = 1L;
 }
