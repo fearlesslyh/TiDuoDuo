@@ -16,7 +16,6 @@ import java.util.List;
  * 题目视图
  *
  * @author <a href=https://github.com/fearlesslyh> 梁懿豪 </a>
-
  */
 @Data
 public class QuestionVO implements Serializable {
