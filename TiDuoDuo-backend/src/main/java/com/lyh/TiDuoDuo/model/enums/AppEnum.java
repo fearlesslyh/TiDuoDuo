@@ -1,6 +1,7 @@
 package com.lyh.TiDuoDuo.model.enums;
 
 import cn.hutool.core.util.ObjectUtil;
+import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
  * @version 1.0
  * @date 2025/3/23 21:16
  */
+@Getter
 public enum AppEnum {
     SCORE("得分类", 0),
     TEST("通过", 1);

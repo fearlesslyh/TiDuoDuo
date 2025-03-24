@@ -3,6 +3,8 @@ package com.lyh.TiDuoDuo.model.enums;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import lombok.Getter;
 import org.apache.commons.lang3.ObjectUtils;
 
 /**
@@ -10,6 +12,7 @@ import org.apache.commons.lang3.ObjectUtils;
  *
  * @author <a href=https://github.com/fearlesslyh> 梁懿豪 </a>
  */
+@Getter
 public enum UserRoleEnum {
 
     USER("用户", "user"),
