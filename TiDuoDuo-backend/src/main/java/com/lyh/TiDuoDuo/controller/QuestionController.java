@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 题目接口
@@ -55,11 +56,11 @@ public class QuestionController {
         // 在此处将实体类和 DTO 进行转换
         Question question = new Question();
         BeanUtils.copyProperties(questionAddRequest, question);
-        QuestionContent questionContentDto = questionAddRequest.getQuestionContent();
+        List<QuestionContent> questionContentDto = questionAddRequest.getQuestionContent();
         question.setQuestionContent(JSONUtil.toJsonStr(questionContentDto));
         // 数据校验
         questionService.validQuestion(question, true);
-        // todo 填充默认值
+        //  填充默认值
         User loginUser = userService.getLoginUser(request);
         question.setUserId(loginUser.getId());
         // 写入数据库
@@ -112,7 +113,7 @@ public class QuestionController {
         //  在此处将实体类和 DTO 进行转换
         Question question = new Question();
         BeanUtils.copyProperties(questionUpdateRequest, question);
-        QuestionContent questionContentDto = questionUpdateRequest.getQuestionContent();
+        List<QuestionContent> questionContentDto = questionUpdateRequest.getQuestionContent();
         question.setQuestionContent(JSONUtil.toJsonStr(questionContentDto));
         // 数据校验
         questionService.validQuestion(question, false);
@@ -217,10 +218,10 @@ public class QuestionController {
         if (questionEditRequest == null || questionEditRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        // todo 在此处将实体类和 DTO 进行转换
+        //  在此处将实体类和 DTO 进行转换
         Question question = new Question();
         BeanUtils.copyProperties(questionEditRequest, question);
-        QuestionContent questionContentDto = questionEditRequest.getQuestionContent();
+        List<QuestionContent> questionContentDto = questionEditRequest.getQuestionContent();
         question.setQuestionContent(JSONUtil.toJsonStr(questionContentDto));
         // 数据校验
         questionService.validQuestion(question, false);

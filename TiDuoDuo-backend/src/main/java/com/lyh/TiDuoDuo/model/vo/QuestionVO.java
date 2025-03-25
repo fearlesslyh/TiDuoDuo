@@ -27,7 +27,7 @@ public class QuestionVO implements Serializable {
     /**
      * 题目内容（json格式）
      */
-    private QuestionContent questionContent;
+    private List<QuestionContent> questionContent;
 
     /**
      * 应用 id
@@ -116,7 +116,7 @@ public class QuestionVO implements Serializable {
         }
         Question question = new Question();
         BeanUtils.copyProperties(questionVO, question);
-        QuestionContent questionContent = questionVO.getQuestionContent();
+        List<QuestionContent> questionContent = questionVO.getQuestionContent();
         question.setQuestionContent(JSONUtil.toJsonStr(questionContent));
         return question;
     }
@@ -128,12 +128,21 @@ public class QuestionVO implements Serializable {
      * @return
      */
     public static QuestionVO objToVo(Question question) {
+        // 判断传入的对象是否为空
         if (question == null) {
+            // 如果为空，则返回null
             return null;
         }
+        // 创建一个新的封装类对象
         QuestionVO questionVO = new QuestionVO();
+        // 使用BeanUtils工具类将传入的对象的属性值复制到新的封装类对象中
         BeanUtils.copyProperties(question, questionVO);
-        questionVO.setQuestionContent(JSONUtil.toBean(question.getQuestionContent(), QuestionContent.class));
+        String questionContent = question.getQuestionContent();
+        if(questionContent != null){
+            // 将传入的对象的questionContent属性值转换为QuestionContent类对象，并设置到新的封装类对象中
+            questionVO.setQuestionContent(JSONUtil.toList(questionContent, QuestionContent.class));
+        }
+        // 返回新的封装类对象
         return questionVO;
     }
 }

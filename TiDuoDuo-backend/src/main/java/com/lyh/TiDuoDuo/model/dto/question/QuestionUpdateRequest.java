@@ -3,6 +3,7 @@ package com.lyh.TiDuoDuo.model.dto.question;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 更新题目请求
@@ -21,7 +22,7 @@ public class QuestionUpdateRequest implements Serializable {
     /**
      * 题目内容（json格式）
      */
-    private QuestionContent questionContent;
+    private List<QuestionContent> questionContent;
 
     /**
      * 应用 id

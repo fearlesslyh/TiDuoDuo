@@ -56,14 +56,11 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         //  从对象中取值
         String questionContent = question.getQuestionContent();
         Long appId = question.getAppId();
-        Long userId = question.getUserId();
-
         // 创建数据时，参数不能为空
         if (add) {
             //  补充校验规则
             ThrowUtils.throwIf(StringUtils.isBlank(questionContent), ErrorCode.PARAMS_ERROR, "题目不能为空");
             ThrowUtils.throwIf(ObjectUtils.isEmpty(appId), ErrorCode.PARAMS_ERROR, "应用不能为空");
-            ThrowUtils.throwIf(userId == null || userId <= 0, ErrorCode.PARAMS_ERROR, "用户不能为空");
         }
         // 修改数据时，有参数则校验
         //  补充校验规则

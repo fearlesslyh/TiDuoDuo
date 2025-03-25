@@ -49,35 +49,46 @@ public class FileController {
      * @return
      */
     @PostMapping("/upload")
-    public BaseResponse<String> uploadFile(@RequestPart("file") MultipartFile multipartFile,
-            UploadFileRequest uploadFileRequest, HttpServletRequest request) {
+    public BaseResponse<String> uploadFile(@RequestPart("file") MultipartFile multipartFile, UploadFileRequest uploadFileRequest, HttpServletRequest request) {
+        // 获取业务类型
         String biz = uploadFileRequest.getBiz();
+        // 根据业务类型获取枚举
         FileUploadBizEnum fileUploadBizEnum = FileUploadBizEnum.getEnumByValue(biz);
+        // 如果业务类型不存在，抛出参数错误异常
         if (fileUploadBizEnum == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
+        // 验证文件
         validFile(multipartFile, fileUploadBizEnum);
+        // 获取登录用户
         User loginUser = userService.getLoginUser(request);
         // 文件目录：根据业务、用户来划分
         String uuid = RandomStringUtils.randomAlphanumeric(8);
+        // 文件名：随机生成8位字母数字组合 + 原文件名
         String filename = uuid + "-" + multipartFile.getOriginalFilename();
+        // 文件路径：/业务类型/用户id/文件名
         String filepath = String.format("/%s/%s/%s", fileUploadBizEnum.getValue(), loginUser.getId(), filename);
         File file = null;
         try {
             // 上传文件
             file = File.createTempFile(filepath, null);
+            // 将文件保存到临时文件
             multipartFile.transferTo(file);
+            // 将文件上传到cos
             cosManager.putObject(filepath, file);
             // 返回可访问地址
             return ResultUtils.success(FileConstant.COS_HOST + filepath);
         } catch (Exception e) {
+            // 记录错误日志
             log.error("file upload error, filepath = " + filepath, e);
+            // 抛出系统错误异常
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "上传失败");
         } finally {
             if (file != null) {
                 // 删除临时文件
                 boolean delete = file.delete();
                 if (!delete) {
+                    // 记录错误日志
                     log.error("file delete error, filepath = {}", filepath);
                 }
             }

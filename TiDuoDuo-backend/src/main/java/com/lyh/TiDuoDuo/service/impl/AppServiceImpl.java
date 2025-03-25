@@ -88,7 +88,7 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements AppSe
 
         if(reviewStatus != null){
             ReviewStatusEnum reviewStatusEnum = ReviewStatusEnum.getEnumByValue(reviewStatus);
-            ThrowUtils.throwIf(reviewStatusEnum == null, ErrorCode.PARAMS_ERROR, "审核状态不能为空");
+            ThrowUtils.throwIf(reviewStatusEnum == null, ErrorCode.PARAMS_ERROR, "审核状态非法");
         }
 
     }
