@@ -14,9 +14,14 @@ import com.lyh.TiDuoDuo.model.dto.userAnswer.UserAnswerAddRequest;
 import com.lyh.TiDuoDuo.model.dto.userAnswer.UserAnswerEditRequest;
 import com.lyh.TiDuoDuo.model.dto.userAnswer.UserAnswerQueryRequest;
 import com.lyh.TiDuoDuo.model.dto.userAnswer.UserAnswerUpdateRequest;
+import com.lyh.TiDuoDuo.model.entity.App;
 import com.lyh.TiDuoDuo.model.entity.User;
 import com.lyh.TiDuoDuo.model.entity.UserAnswer;
+import com.lyh.TiDuoDuo.model.enums.ReviewStatusEnum;
 import com.lyh.TiDuoDuo.model.vo.UserAnswerVO;
+import com.lyh.TiDuoDuo.scoring.ScoringStrategy;
+import com.lyh.TiDuoDuo.scoring.ScoringStrategyExecutor;
+import com.lyh.TiDuoDuo.service.AppService;
 import com.lyh.TiDuoDuo.service.UserAnswerService;
 import com.lyh.TiDuoDuo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +49,11 @@ public class UserAnswerController {
     @Resource
     private UserService userService;
 
+    @Resource
+    private AppService appService;
+    @Resource
+    private ScoringStrategyExecutor scoringStrategyExecutor;
+
     // region 增删改查
 
     /**
@@ -63,7 +73,14 @@ public class UserAnswerController {
         userAnswer.setChoices(JSONUtil.toJsonStr(choices));
         // 数据校验
         userAnswerService.validUserAnswer(userAnswer, true);
-        // todo 填充默认值
+        //判断app是否存在
+        Long appId = userAnswerAddRequest.getAppId();
+        App app = appService.getById(appId);
+        ThrowUtils.throwIf(app == null, ErrorCode.NOT_FOUND_ERROR, "应用不存在");
+        if (!ReviewStatusEnum.PASS.equals(ReviewStatusEnum.getEnumByValue(app.getReviewStatus()))) {
+            throw new BusinessException(ErrorCode.NO_AUTH_ERROR, "应用未通过审核");
+        }
+        //  填充默认值
         User loginUser = userService.getLoginUser(request);
         userAnswer.setUserId(loginUser.getId());
         // 写入数据库
@@ -71,6 +88,15 @@ public class UserAnswerController {
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
         // 返回新写入的数据 id
         long newUserAnswerId = userAnswer.getId();
+        //调用评分模块
+        try {
+            UserAnswer userAnswerResult = scoringStrategyExecutor.doScore(choices, app);
+            userAnswerResult.setId(newUserAnswerId);
+            userAnswerService.updateById(userAnswerResult);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BusinessException(ErrorCode.OPERATION_ERROR, "评分失败");
+        }
         return ResultUtils.success(newUserAnswerId);
     }
 
