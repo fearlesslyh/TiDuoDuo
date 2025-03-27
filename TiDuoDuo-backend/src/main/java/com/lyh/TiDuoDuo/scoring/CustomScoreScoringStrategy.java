@@ -85,6 +85,6 @@ public class CustomScoreScoringStrategy implements ScoringStrategy {
         userAnswer.setResultName(maxScoreResult.getResultName());
         userAnswer.setResultDesc(maxScoreResult.getResultDesc());
         userAnswer.setResultPicture(maxScoreResult.getResultPicture());
-        return null;
+        return userAnswer;
     }
 }
