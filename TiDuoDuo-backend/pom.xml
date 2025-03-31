@@ -107,6 +107,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+<!--        https://open.bigmodel.cn/dev/api/devguide/sdk-install-->
+        <dependency>
+            <groupId>cn.bigmodel.openapi</groupId>
+            <artifactId>oapi-java-sdk</artifactId>
+            <version>release-V4-2.3.2</version>
+        </dependency>
     </dependencies>
 
     <build>

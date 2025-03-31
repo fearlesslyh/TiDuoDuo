@@ -77,3 +77,6 @@ knife4j:
         api-rule: package
         api-rule-resources:
           - com.lyh.TiDuoDuo.controller
+
+ai:
+  apiKey: a0b9acf941b6429786644fdfc8c8d07f.cDyVhGAv2dwqZitl
