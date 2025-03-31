@@ -249,7 +249,7 @@ public class QuestionController {
         return ResultUtils.success(true);
     }
 
-    @PostMapping("ai_generate")
+    @PostMapping("/ai_generate")
     public BaseResponse<List<QuestionContent>> aiGenerateQuestion(@RequestBody AiGenerateQuestionRequest aiGenerateQuestionRequest) {
         //判断参数是否为空
         ThrowUtils.throwIf(aiGenerateQuestionRequest == null, ErrorCode.PARAMS_ERROR);
