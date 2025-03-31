@@ -1,6 +1,7 @@
 package com.lyh.TiDuoDuo.model.enums;
 
 import cn.hutool.core.util.ObjectUtil;
+import lombok.Data;
 import lombok.Getter;
 
 import java.util.Arrays;

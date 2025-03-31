@@ -10,10 +10,14 @@ import com.lyh.TiDuoDuo.common.ResultUtils;
 import com.lyh.TiDuoDuo.constant.UserConstant;
 import com.lyh.TiDuoDuo.exception.BusinessException;
 import com.lyh.TiDuoDuo.exception.ThrowUtils;
+import com.lyh.TiDuoDuo.manager.AiManager;
 import com.lyh.TiDuoDuo.model.dto.question.*;
+import com.lyh.TiDuoDuo.model.entity.App;
 import com.lyh.TiDuoDuo.model.entity.Question;
 import com.lyh.TiDuoDuo.model.entity.User;
+import com.lyh.TiDuoDuo.model.enums.AppEnum;
 import com.lyh.TiDuoDuo.model.vo.QuestionVO;
+import com.lyh.TiDuoDuo.service.AppService;
 import com.lyh.TiDuoDuo.service.QuestionService;
 import com.lyh.TiDuoDuo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +32,6 @@ import java.util.List;
  * 题目接口
  *
  * @author <a href=https://github.com/fearlesslyh> 梁懿豪 </a>
-
  */
 @RestController
 @RequestMapping("/question")
@@ -40,6 +43,12 @@ public class QuestionController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private AppService appService;
+
+    @Resource
+    private AiManager aiManager;
 
     // region 增删改查
 
@@ -240,5 +249,70 @@ public class QuestionController {
         return ResultUtils.success(true);
     }
 
+    @PostMapping("ai_generate")
+    public BaseResponse<List<QuestionContent>> aiGenerateQuestion(@RequestBody AiGenerateQuestionRequest aiGenerateQuestionRequest) {
+        //判断参数是否为空
+        ThrowUtils.throwIf(aiGenerateQuestionRequest == null, ErrorCode.PARAMS_ERROR);
+        //获取参数
+        Long appId = aiGenerateQuestionRequest.getAppId();
+        int questionNumber = aiGenerateQuestionRequest.getQuestionNumber();
+        int optionNumber = aiGenerateQuestionRequest.getOptionNumber();
+        //根据appId获取App对象
+        App app = appService.getById(appId);
+        //判断App对象是否为空
+        ThrowUtils.throwIf(app == null, ErrorCode.NOT_FOUND_ERROR);
+        //获取生成题目系统消息
+        String userMessage = getGenerateQuestionSystemMessage(app, questionNumber, optionNumber);
+        //调用aiManager的doSyncUnstableRequest方法，获取结果
+        String result = aiManager.doSyncUnstableRequest(userMessage, GENERATE_QUESTION_SYSTEM_MESSAGE);
+        //获取结果中的json字符串
+        int start = result.indexOf("[");
+        int end = result.indexOf("]");
+        String json = result.substring(start, end + 1);
+        //将json字符串转换为List<QuestionContent>对象
+        List<QuestionContent> questionContentList = JSONUtil.toList(json, QuestionContent.class);
+        //返回成功结果
+        return ResultUtils.success(questionContentList);
+    }
+
     // endregion
+
+    //region AI 答题部分
+    private static final String GENERATE_QUESTION_SYSTEM_MESSAGE = "你是一位严谨的出题专家，我会给你如下信息：\n" +
+            "```\n" +
+            "应用名称，\n" +
+            "【【【应用描述】】】，\n" +
+            "应用类别，\n" +
+            "要生成的题目数，\n" +
+            "每个题目的选项数\n" +
+            "```\n" +
+            "\n" +
+            "请你根据上述信息，按照以下步骤来出题：\n" +
+            "1. 要求：题目和选项尽可能地短，题目不要包含序号，每题的选项数以我提供的为主，题目不能重复\n" +
+            "2. 严格按照下面的 json 格式输出题目和选项\n" +
+            "```\n" +
+            "[{\"options\":[{\"value\":\"选项内容\",\"key\":\"A\"},{\"value\":\"\",\"key\":\"B\"}],\"title\":\"题目标题\"}]\n" +
+            "```\n" +
+            "title 是题目，options 是选项，每个选项的 key 按照英文字母序（比如 A、B、C、D）以此类推，value 是选项内容\n" +
+            "3. 检查题目是否包含序号，若包含序号则去除序号\n" +
+            "4. 返回的题目列表格式必须为 JSON 数组";
+
+    // 根据传入的app、问题编号和选项编号生成系统消息
+    private String getGenerateQuestionSystemMessage(App app, int questionNumber, int optionNumber) {
+        // 创建一个StringBuilder对象，用于拼接消息
+        StringBuilder userMessage = new StringBuilder();
+        // 拼接应用名称
+        userMessage.append(app.getAppName()).append("\n");
+        // 拼接应用描述
+        userMessage.append(app.getAppDesc()).append("\n");
+        // 根据应用类型获取对应的枚举值，并拼接应用类型
+        userMessage.append(AppEnum.getEnumByValue(app.getAppType()).getText()).append("类").append("\n");
+        // 拼接问题编号
+        userMessage.append(questionNumber).append("\n");
+        // 拼接选项编号
+        userMessage.append(optionNumber).append("\n");
+        // 返回拼接好的消息
+        return userMessage.toString();
+    }
+    //endregion
 }
