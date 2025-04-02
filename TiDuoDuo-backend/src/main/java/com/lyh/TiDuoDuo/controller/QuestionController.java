@@ -23,6 +23,7 @@ import com.lyh.TiDuoDuo.service.QuestionService;
 import com.lyh.TiDuoDuo.service.UserService;
 import com.zhipu.oapi.service.v4.model.ModelData;
 import io.reactivex.Flowable;
+import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -57,6 +58,9 @@ public class QuestionController {
 
     @Resource
     private AiManager aiManager;
+
+    @Resource
+    private Scheduler vipScheduler;
 
     // region 增删改查
 
@@ -284,7 +288,7 @@ public class QuestionController {
     }
 
     @GetMapping("/ai_generate/sse")
-    public SseEmitter aiGenerateQuestionSSE(AiGenerateQuestionRequest aiGenerateQuestionRequest) {
+    public SseEmitter aiGenerateQuestionSSE(AiGenerateQuestionRequest aiGenerateQuestionRequest, HttpServletRequest request) {
         //判断参数是否为空
         ThrowUtils.throwIf(aiGenerateQuestionRequest == null, ErrorCode.PARAMS_ERROR);
         //获取参数
@@ -305,10 +309,17 @@ public class QuestionController {
         AtomicInteger count = new AtomicInteger(0);
         // 创建一个StringBuilder对象
         StringBuilder stringBuilder = new StringBuilder();
+        // 默认全局线程池
+        Scheduler scheduler = Schedulers.io();
+        User loginUser = userService.getLoginUser(request);
+        // 如果用户是 VIP，则使用定制线程池
+        if ("vip".equals(loginUser.getUserRole())) {
+            scheduler = vipScheduler;
+        }
         // 将modelDataFlowable转换到IO线程上
         modelDataFlowable
                 // 将modelDataFlowable转换到IO线程上
-                .observeOn(Schedulers.io())
+                .observeOn(scheduler)
                 // 将modelDataFlowable中的modelData转换为choices中的第一个delta的内容
                 .map(modelData ->
                         modelData.getChoices().get(0).getDelta().getContent()
@@ -338,6 +349,8 @@ public class QuestionController {
                         count.addAndGet(-1);
                         //判断count是否为0
                         if (count.get() == 0) {
+                            // 输出当前线程名称
+                            System.out.println(Thread.currentThread().getName());
                             //发送结果
                             sseEmitter.send(JSONUtil.toJsonStr(stringBuilder.toString()));
                             //清空StringBuilder
