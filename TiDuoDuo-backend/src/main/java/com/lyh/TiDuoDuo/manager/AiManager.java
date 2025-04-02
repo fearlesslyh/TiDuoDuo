@@ -107,6 +107,22 @@ public class AiManager {
     }
 
     /**
+     * 通用流式请求(简化）
+     * @param systemMessage
+     * @param userMessage
+     * @param temperature
+     * @return
+     */
+    public Flowable<ModelData> doStreamRequest(String systemMessage,String userMessage, Float temperature) {
+        List<ChatMessage> chatMessages = new ArrayList<>();
+        ChatMessage systemChatMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), systemMessage);
+        chatMessages.add(systemChatMessage);
+        ChatMessage userChatMessage = new ChatMessage(ChatMessageRole.USER.value(), userMessage);
+        chatMessages.add(userChatMessage);
+        return doStreamRequest(chatMessages, temperature);
+    }
+
+    /**
      * 通用流式请求
      * @param messages
      * @param temperature

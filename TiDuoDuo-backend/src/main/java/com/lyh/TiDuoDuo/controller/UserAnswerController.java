@@ -92,6 +92,7 @@ public class UserAnswerController {
         try {
             UserAnswer userAnswerResult = scoringStrategyExecutor.doScore(choices, app);
             userAnswerResult.setId(newUserAnswerId);
+            userAnswerResult.setAppId(null);
             userAnswerService.updateById(userAnswerResult);
         } catch (Exception e) {
             e.printStackTrace();

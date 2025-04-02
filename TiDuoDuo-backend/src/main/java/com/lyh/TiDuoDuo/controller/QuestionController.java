@@ -1,5 +1,6 @@
 package com.lyh.TiDuoDuo.controller;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lyh.TiDuoDuo.annotation.AuthCheck;
@@ -20,13 +21,20 @@ import com.lyh.TiDuoDuo.model.vo.QuestionVO;
 import com.lyh.TiDuoDuo.service.AppService;
 import com.lyh.TiDuoDuo.service.QuestionService;
 import com.lyh.TiDuoDuo.service.UserService;
+import com.zhipu.oapi.service.v4.model.ModelData;
+import io.reactivex.Flowable;
+import io.reactivex.schedulers.Schedulers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+import springfox.documentation.spring.web.json.Json;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 题目接口
@@ -273,6 +281,84 @@ public class QuestionController {
         List<QuestionContent> questionContentList = JSONUtil.toList(json, QuestionContent.class);
         //返回成功结果
         return ResultUtils.success(questionContentList);
+    }
+
+    @GetMapping("/ai_generate/sse")
+    public SseEmitter aiGenerateQuestionSSE(AiGenerateQuestionRequest aiGenerateQuestionRequest) {
+        //判断参数是否为空
+        ThrowUtils.throwIf(aiGenerateQuestionRequest == null, ErrorCode.PARAMS_ERROR);
+        //获取参数
+        Long appId = aiGenerateQuestionRequest.getAppId();
+        int questionNumber = aiGenerateQuestionRequest.getQuestionNumber();
+        int optionNumber = aiGenerateQuestionRequest.getOptionNumber();
+        //根据appId获取App对象
+        App app = appService.getById(appId);
+        //判断App对象是否为空
+        ThrowUtils.throwIf(app == null, ErrorCode.NOT_FOUND_ERROR);
+        //获取生成题目系统消息, 封装prompt
+        String userMessage = getGenerateQuestionSystemMessage(app, questionNumber, optionNumber);
+        //建立sseemitter连接对象
+        SseEmitter sseEmitter = new SseEmitter();
+        //调用aiManager的doStreamRequest方法，获取结果
+        Flowable<ModelData> modelDataFlowable = aiManager.doStreamRequest(GENERATE_QUESTION_SYSTEM_MESSAGE, userMessage, null);
+        //订阅结果
+        AtomicInteger count = new AtomicInteger(0);
+        // 创建一个StringBuilder对象
+        StringBuilder stringBuilder = new StringBuilder();
+        // 将modelDataFlowable转换到IO线程上
+        modelDataFlowable
+                // 将modelDataFlowable转换到IO线程上
+                .observeOn(Schedulers.io())
+                // 将modelDataFlowable中的modelData转换为choices中的第一个delta的内容
+                .map(modelData ->
+                        modelData.getChoices().get(0).getDelta().getContent()
+                )
+                // 将message中的所有空格替换为空字符串
+                .map(message -> message.replaceAll("\\s", ""))
+                // 过滤掉空字符串
+                .filter(StrUtil::isNotBlank)
+                // 将message转换为字符列表
+                .flatMap(message -> {
+                    List<Character> characterList = new ArrayList<>();
+                    // 遍历message中的每个字符
+                    for (char c : message.toCharArray()) {
+                        // 将字符添加到characterList中
+                        characterList.add(c);
+                    }
+                    // 将characterList转换为Flowable对象
+                    return Flowable.fromIterable(characterList);
+                })
+                .doOnNext(c -> {
+                    //判断字符是否为'{'
+                    if (c == '{') {
+                        count.addAndGet(1);
+                    }
+                    //判断字符是否为'}'
+                    if (c == '}') {
+                        count.addAndGet(-1);
+                        //判断count是否为0
+                        if (count.get() == 0) {
+                            //发送结果
+                            sseEmitter.send(JSONUtil.toJsonStr(stringBuilder.toString()));
+                            //清空StringBuilder
+                            stringBuilder.setLength(0);
+                        }
+                    }
+                    //判断count是否大于0
+                    if (count.get() > 0) {
+                        //将字符添加到StringBuilder中
+                        stringBuilder.append(c);
+                    }
+
+                })
+                // 当发生错误时，记录错误日志
+                .doOnError((e) -> log.error("sseEmitter error", e))
+                // 当完成时，完成sseEmitter
+                .doOnComplete(sseEmitter::complete)
+                // 订阅
+                .subscribe();
+        // 返回sseEmitter
+        return sseEmitter;
     }
 
     // endregion
