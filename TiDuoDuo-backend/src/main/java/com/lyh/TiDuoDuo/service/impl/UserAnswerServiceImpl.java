@@ -53,11 +53,14 @@ public class UserAnswerServiceImpl extends ServiceImpl<UserAnswerMapper, UserAns
         ThrowUtils.throwIf(userAnswer == null, ErrorCode.PARAMS_ERROR);
         //  从对象中取值
         Long appId = userAnswer.getAppId();
-
+        Long id = userAnswer.getId();
+        String serialNumber = userAnswer.getSerialNumber();
         // 创建数据时，参数不能为空
         if (add) {
             //  补充校验规则
             ThrowUtils.throwIf(ObjectUtils.isEmpty(appId), ErrorCode.PARAMS_ERROR, "应用不能为空");
+            ThrowUtils.throwIf(ObjectUtils.isEmpty(id), ErrorCode.PARAMS_ERROR, "id 不能为空");
+            ThrowUtils.throwIf(ObjectUtils.isEmpty(serialNumber), ErrorCode.PARAMS_ERROR, "流水号 不能为空");
         }
         // 修改数据时，有参数则校验
         //  补充校验规则

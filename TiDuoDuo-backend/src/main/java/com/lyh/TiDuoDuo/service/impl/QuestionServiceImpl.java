@@ -119,6 +119,9 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         // 对象转封装类
         QuestionVO questionVO = QuestionVO.objToVo(question);
 
+        //返回流水号
+        questionVO.setSerialNumber(UUID.randomUUID().toString());
+
         //  可以根据需要为封装对象补充值，不需要的内容可以删除
         // region 可选
         // 1. 关联查询用户信息

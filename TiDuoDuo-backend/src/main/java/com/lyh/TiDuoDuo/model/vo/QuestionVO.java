@@ -103,6 +103,11 @@ public class QuestionVO implements Serializable {
      * 创建用户信息
      */
     private UserVO user;
+    /**
+     * 答题流水号
+     */
+    private String serialNumber;
+
 
     /**
      * 封装类转对象

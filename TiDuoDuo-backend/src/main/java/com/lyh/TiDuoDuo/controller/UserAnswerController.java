@@ -1,6 +1,8 @@
 package com.lyh.TiDuoDuo.controller;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lyh.TiDuoDuo.annotation.AuthCheck;
 import com.lyh.TiDuoDuo.common.BaseResponse;
@@ -26,6 +28,7 @@ import com.lyh.TiDuoDuo.service.UserAnswerService;
 import com.lyh.TiDuoDuo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -36,7 +39,6 @@ import java.util.List;
  * 用户答案接口
  *
  * @author <a href=https://github.com/fearlesslyh> 梁懿豪 </a>
-
  */
 @RestController
 @RequestMapping("/userAnswer")
@@ -83,11 +85,28 @@ public class UserAnswerController {
         //  填充默认值
         User loginUser = userService.getLoginUser(request);
         userAnswer.setUserId(loginUser.getId());
+
+        long newUserAnswerId;
+
         // 写入数据库
-        boolean result = userAnswerService.save(userAnswer);
-        ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
-        // 返回新写入的数据 id
-        long newUserAnswerId = userAnswer.getId();
+        try {
+            boolean result = userAnswerService.save(userAnswer);
+            ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
+            //返回新写入的id
+            newUserAnswerId = userAnswer.getId();
+        } catch (DuplicateKeyException e) {
+            e.printStackTrace();
+            //ignore error 获取之前的数据id
+            UserAnswer answer=userAnswerService.getOne(Wrappers.
+                    lambdaQuery(UserAnswer.class)
+                    .select(UserAnswer::getId)
+                    .eq(UserAnswer::getSerialNumber, userAnswer.getSerialNumber())
+                    .eq(UserAnswer::getAppId, userAnswer.getAppId())
+                    .eq(UserAnswer::getUserId, userAnswer.getUserId())
+            );
+            newUserAnswerId=answer.getId();
+        }
+
         //调用评分模块
         try {
             UserAnswer userAnswerResult = scoringStrategyExecutor.doScore(choices, app);
@@ -199,7 +218,7 @@ public class UserAnswerController {
      */
     @PostMapping("/list/page/vo")
     public BaseResponse<Page<UserAnswerVO>> listUserAnswerVOByPage(@RequestBody UserAnswerQueryRequest userAnswerQueryRequest,
-                                                               HttpServletRequest request) {
+                                                                   HttpServletRequest request) {
         long current = userAnswerQueryRequest.getCurrent();
         long size = userAnswerQueryRequest.getPageSize();
         // 限制爬虫
@@ -220,7 +239,7 @@ public class UserAnswerController {
      */
     @PostMapping("/my/list/page/vo")
     public BaseResponse<Page<UserAnswerVO>> listMyUserAnswerVOByPage(@RequestBody UserAnswerQueryRequest userAnswerQueryRequest,
-                                                                 HttpServletRequest request) {
+                                                                     HttpServletRequest request) {
         ThrowUtils.throwIf(userAnswerQueryRequest == null, ErrorCode.PARAMS_ERROR);
         // 补充查询条件，只查询当前登录用户的数据
         User loginUser = userService.getLoginUser(request);
@@ -271,4 +290,11 @@ public class UserAnswerController {
     }
 
     // endregion
+
+    @GetMapping("/generate/id")
+    public BaseResponse<Long> generateUserAnswerId() {
+        return ResultUtils.success(IdUtil.getSnowflakeNextId());
+    }
+
+
 }
